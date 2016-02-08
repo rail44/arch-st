@@ -1,10 +1,6 @@
-# Maintainer: mar77i <mysatyre at gmail dot com>
-# Past Maintainer: Gaetan Bisson <bisson@archlinux.org>
-# Contributor: Scytrin dai Kinthra <scytrin@gmail.com>
-
 pkgname=st-git
 _pkgname=st
-pkgver=20151011.f56c58a
+pkgver=20160208.e6cc663
 pkgrel=1
 pkgdesc='Simple virtual terminal emulator for X'
 url='http://git.suckless.org/st/'
@@ -12,7 +8,7 @@ arch=('i686' 'x86_64')
 license=('MIT')
 depends=('libxft')
 makedepends=('ncurses' 'libxext' 'git')
-source=('git://git.suckless.org/st')
+source=('git+https://github.com/rail44/st.git')
 sha1sums=('SKIP')
 
 provides=("${_pkgname}")
@@ -21,34 +17,6 @@ conflicts=("${_pkgname}")
 pkgver() {
 	cd "${srcdir}/${_pkgname}"
 	git log -1 --format='%cd.%h' --date=short | tr -d -
-}
-
-prepare() {
-	local file
-	cd "${srcdir}/${_pkgname}"
-	sed \
-		-e '/char font/s/= .*/= "Fixed:pixelsize=13:style=SemiCondensed";/' \
-		-e '/char worddelimiters/s/= .*/= " '"'"'`\\\"()[]{}<>|";/' \
-		-e '/int defaultcs/s/= .*/= 1;/' \
-		-i config.def.h
-	sed \
-		-e 's/CPPFLAGS =/CPPFLAGS +=/g' \
-		-e 's/CFLAGS =/CFLAGS +=/g' \
-		-e 's/LDFLAGS =/LDFLAGS +=/g' \
-		-e 's/_BSD_SOURCE/_DEFAULT_SOURCE/' \
-		-i config.mk
-	sed '/@tic/d' -i Makefile
-	for file in "${source[@]}"; do
-		if [[ "$file" == "config.h" ]]; then
-			# add config.h if present in source array
-			# Note: this supersedes the above sed to config.def.h
-			cp "$srcdir/$file" .
-			continue
-		elif [[ "$file" == *.diff ]]; then
-			# add all patches present in source array
-			patch -Np1 <"$srcdir/$file"
-		fi
-	done
 }
 
 build() {
