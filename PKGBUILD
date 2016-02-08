@@ -1,6 +1,6 @@
 pkgname=st-git
 _pkgname=st
-pkgver=20160208.e6cc663
+pkgver=20160208.6068750
 pkgrel=1
 pkgdesc='Simple virtual terminal emulator for X'
 url='http://git.suckless.org/st/'
