@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=st
+Comment=A simple virtual terminal emulator for X
+Keywords=shell;prompt;command;commandline;cmd;
+TryExec=st
+Exec=st
+Icon=terminal
+Type=Application
+Terminal=false
+Categories=System;TerminalEmulator;
+StartupNotify=true

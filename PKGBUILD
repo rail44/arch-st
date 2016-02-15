@@ -8,8 +8,10 @@ arch=('i686' 'x86_64')
 license=('MIT')
 depends=('libxft')
 makedepends=('ncurses' 'libxext' 'git')
-source=('git+https://github.com/rail44/st.git')
-sha1sums=('SKIP')
+source=('git+https://github.com/rail44/st.git'
+        'st.desktop')
+sha1sums=('SKIP'
+          'd37e35474ba6af8f62f043d00419319c65734ec5')
 
 provides=("${_pkgname}")
 conflicts=("${_pkgname}")
@@ -29,4 +31,5 @@ package() {
 	make PREFIX=/usr DESTDIR="${pkgdir}" install
 	install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 	install -Dm644 README "${pkgdir}/usr/share/doc/${pkgname}/README"
+	install -Dm644 "${SRCDEST}/st.desktop" "${pkgdir}/usr/share/applications/st.desktop"
 }
